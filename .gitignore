@@ -18,3 +18,4 @@ checkouts/
 .cljs_rhino_repl/
 .lein-git-deps/
 /target-asset-server/
+**/inputs

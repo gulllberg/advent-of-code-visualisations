@@ -1,6 +1,7 @@
 (ns ^:figwheel-hooks advent-of-code-visualisations.main
   (:require [replicant.dom :as d]
-            [advent-of-code-visualisations.day-2024-14.view :refer [view]]))
+            [advent-of-code-visualisations.day-2024-14.view :refer [view]]
+            [advent-of-code-visualisations.day-2024-14.core :as core]))
 
 (defonce db-atom (atom nil))
 
@@ -27,18 +28,20 @@
       (js/setTimeout (fn []
                        (swap! db-atom update :state-index inc)
                        (loop-update-states!))
-                     1000))))
+                     1350))))
 
 (when (nil? (deref db-atom))
   (d/set-dispatch! handle-event)
   (add-watch db-atom :render (fn [_ _ _ _]
                                (render!)))
-  (-> (js/fetch "/assets/files/day14b.txt")
+  (-> (js/fetch "/assets/inputs/day14.txt")
       (.then #(.text %))
       (.then (fn [body]
-               (reset! db-atom {:states (clojure.string/split body "\n\n")
-                                :state-index 0})
-               (loop-update-states!))))
+               (let [initial-state (core/create-state body 101 103)
+                     states (core/part-2 initial-state 8263 1 8270)]
+                 (reset! db-atom {:states      states
+                                  :state-index 0})
+                 (loop-update-states!)))))
   (render!))
 
 

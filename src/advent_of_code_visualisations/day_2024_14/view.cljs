@@ -4,15 +4,15 @@
   [db]
   (let [states (get db :states)
         state-index (:state-index db)
-        state (nth states state-index)
-        width 101]
-    [:div
-     (map-indexed (fn [i row]
-            [:div {:style {:display "flex"}}
-             (map-indexed (fn [j c]
-                            [:div {:replicant/key (str i "-" j)
-                                   :style         {:height     "5px"
-                                                   :width      "5px"
-                                                   :background (if (= c \#) "black" "white")}}])
-                          row)])
-                  (partition (inc width) state))]))
+        state (nth states state-index)]
+    [:div {:style {:position "relative"}}
+     (map (fn [[[x y] _ id]]
+            [:div {:replicant/key id
+                   :style         {:position "absolute"
+                                   :width "5px"
+                                   :height "5px"
+                                   :background "black"
+                                   :transition "top 1.3s, left 1.3s"
+                                   :top      (str (* y 5) "px")
+                                   :left     (str (* x 5) "px")}}])
+          (:guards state))]))
