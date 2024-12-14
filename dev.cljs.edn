@@ -1,0 +1,5 @@
+^{:css-dirs ["resources/public/css"]
+  :open-url false}
+{:main advent-of-code-visualisations.main
+ :output-to "target/public/cljs-out/main.js"
+ }
