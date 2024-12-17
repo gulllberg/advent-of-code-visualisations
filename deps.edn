@@ -3,6 +3,6 @@
            com.bhauman/figwheel-main       {:mvn/version "0.2.18"}
            com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
            no.cjohansen/replicant    {:git/url "https://github.com/cjohansen/replicant"
-                                      :git/sha "63e929c768efb1cad5420ee5ac50ac371585d5a6"}}
+                                      :git/sha "ac4a4741f58c62ee5386b9ca476cc30fa1a6ba44"}}
  :paths   ["src" "target" "resources"]
  :aliases {:fig {:main-opts  ["-m" "figwheel.main" "--build" "dev" "--repl"]}}}
