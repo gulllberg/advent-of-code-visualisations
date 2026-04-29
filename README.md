@@ -19,6 +19,8 @@ Tweak values `core.cljs` to pick some frames before your solution (`8270` was mi
 
 Put your input in `resources/public/assets/inputs/2019-day13.txt`.
 
+To enable autoplay (a replay of a previous run), change `autoplay` to true in `create-state` in `advent-of-code-visualisations.day-2019-13.core` (you will need to refresh the browser page). 
+
 ## run it
 
 Select which day you want to run in the imports in `advent-of-code-visualisations.main`.

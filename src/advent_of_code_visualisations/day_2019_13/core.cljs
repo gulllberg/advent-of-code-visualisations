@@ -1,17 +1,21 @@
 (ns advent-of-code-visualisations.day-2019-13.core
-  (:require [advent-of-code-visualisations.day-2019-13.intcode :refer [parse-program run-intcode-program]]))
+  (:require [advent-of-code-visualisations.day-2019-13.intcode :refer [parse-program run-intcode-program]]
+            [advent-of-code-visualisations.day-2019-13.autoplay :refer [autoplay-user-inputs]]))
 
 (defn create-state
   [input]
-  (let [program (-> (parse-program input)
+  (let [autoplay false
+        program (-> (parse-program input)
                     (assoc 0 2))
-        user-input [0]]
-    {:program                   program
-     :user-inputs               user-input
-     :user-input-for-next-frame nil
-     :high-score                0
-     :frames-per-second         3
-     :program-result            (run-intcode-program program user-input)}))
+        user-input (if autoplay [(first autoplay-user-inputs)] [0])]
+    {:program                    program
+     :user-inputs                user-input
+     :user-input-for-next-frame  nil
+     :high-score                 0
+     :frames-per-second          3
+     :autoplay                   autoplay
+     :autoplay-user-inputs-index 1
+     :program-result             (run-intcode-program program user-input)}))
 
 (defn get-frames-per-second
   [state]
@@ -23,7 +27,9 @@
 
 (defn get-frame-time
   [state]
-  (/ 1000 (get-frames-per-second state)))
+  (if (:autoplay state)
+    25
+    (/ 1000 (get-frames-per-second state))))
 
 (defn restart
   [state]
@@ -63,13 +69,17 @@
   [state]
   (if (game-over? state)
     state
-    (let [user-input (or (:user-input-for-next-frame state) 0)
+    (let [autoplay (:autoplay state)
+          user-input (if autoplay
+                       (nth autoplay-user-inputs (:autoplay-user-inputs-index state))
+                       (or (:user-input-for-next-frame state) 0))
           state (update state :program-result (fn [{memory :memory program-output :program-output instruction-pointer :instruction-pointer relative-base :relative-base}]
                                                 (run-intcode-program memory instruction-pointer [user-input] program-output relative-base)))
           current-score (get-score state)]
       (-> state
           (update :user-inputs conj user-input)
           (assoc :user-input-for-next-frame nil)
+          (update :autoplay-user-inputs-index inc)
           (update :high-score max current-score)))))
 
 (defn handle-arrow-left
