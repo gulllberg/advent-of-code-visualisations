@@ -18,6 +18,8 @@
       :restart (swap! db-atom core/restart)
       :undo (swap! db-atom core/undo)
       :frame-time-change (swap! db-atom core/set-frames-per-second (js/parseInt data))
+      :play-sound (let [audio (js/Audio. "/assets/sound/glass-crash.mp3")]
+                    (.play audio))
       (println "No event handler for event" event))))
 
 (defn keydown-handler

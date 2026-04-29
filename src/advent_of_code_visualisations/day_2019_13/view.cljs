@@ -63,10 +63,9 @@
           x-range (core/get-x-range draw-state)
           number-of-blocks (core/get-number-of-blocks draw-state)]
       [:div {:style {:position "relative"}
-             :replicant/on-render (fn [{remember :replicant/remember previous-number :replicant/memory}]
+             :replicant/on-render (fn [{remember :replicant/remember previous-number :replicant/memory dispatch :replicant/dispatch}]
                                     (when (< number-of-blocks (or previous-number 0))
-                                      (let [audio (js/Audio. "/assets/sound/boing.mp3")]
-                                        (.play audio)))
+                                      (dispatch {} [{:event :play-sound}]))
                                     (remember number-of-blocks))}
        (->> y-range
             (map (fn [y]
