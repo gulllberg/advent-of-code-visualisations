@@ -1,8 +1,7 @@
-{:deps    {org.clojure/clojure       {:mvn/version "1.11.4"}
-           org.clojure/clojurescript {:mvn/version "1.11.132"}
-           com.bhauman/figwheel-main       {:mvn/version "0.2.18"}
-           com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
-           no.cjohansen/replicant    {:git/url "https://github.com/cjohansen/replicant"
-                                      :git/sha "ac4a4741f58c62ee5386b9ca476cc30fa1a6ba44"}}
+{:deps    {org.clojure/clojure             {:mvn/version "1.12.4"}
+           org.clojure/clojurescript       {:mvn/version "1.12.134"}
+           com.bhauman/figwheel-main       {:mvn/version "0.2.20"}
+           com.bhauman/rebel-readline-cljs {:mvn/version "0.1.5"}
+           no.cjohansen/replicant          {:mvn/version "2025.12.1"}}
  :paths   ["src" "target" "resources"]
- :aliases {:fig {:main-opts  ["-m" "figwheel.main" "--build" "dev" "--repl"]}}}
+ :aliases {:fig {:main-opts ["-m" "figwheel.main" "--build" "dev" "--repl"]}}}

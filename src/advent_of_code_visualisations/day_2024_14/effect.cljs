@@ -10,12 +10,3 @@
                                         (core/n-seconds-with-new-guards-if-wraparound state core/step-size)))
                        (loop-update-states! db-atom))
                      core/frame-time))))
-
-(defn start!
-  [db-atom]
-  (-> (js/fetch "/assets/inputs/day14.txt")
-      (.then #(.text %))
-      (.then (fn [body]
-               (let [initial-state (core/create-state body 101 103)]
-                 (reset! db-atom (core/n-seconds initial-state core/start-n))
-                 (loop-update-states! db-atom))))))
